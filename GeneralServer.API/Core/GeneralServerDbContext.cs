@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using GeneralServer.API.Core.Domain.Model;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,10 +15,21 @@ namespace GeneralServer.API.Core
 
         }
 
+        public virtual DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
+
+            modelBuilder.Entity<User>()
+                .Property(x => x.Deleted)
+                .HasDefaultValue(false);
+            modelBuilder.Entity<User>()
+                .Property(x => x.CreatedAt)
+                .HasDefaultValueSql("GETDATE()");
+            modelBuilder.Entity<User>()
+                .Property(x => x.UpdatedAt)
+                .HasDefaultValueSql("GETDATE()");
+
             base.OnModelCreating(modelBuilder);
         }
     }

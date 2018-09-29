@@ -10,6 +10,24 @@ namespace GeneralServer.API.Core
 {
     public static class GeneralServerDbContextExtensions
     {
+        public static void SeedDatabase(this GeneralServerDbContext context)
+        {
+            User[] users = new User[]
+            {
+                new User{Username = "admin",        Password="admin"},
+                new User{Username = "rogerS",       Password="pass123"},
+                new User{Username = "pat1",         Password="pass123"},
+                new User{Username = "st3v3n",       Password="pass123"},
+                new User{Username = "wallace",      Password="pass123"},
+                new User{Username = "KurtisC",      Password="pass123"},
+                new User{Username = "W_StaGG",      Password="pass123"},
+                new User{Username = "DennisCXZ",    Password="pass123"}
+            };
+
+            context.Users.AddRange(users);
+            context.SaveChanges();
+        }
+
         public static void CreateTriggers(this GeneralServerDbContext context)
         {
             PropertyInfo[] propertyInfos = typeof(GeneralServerDbContext).GetProperties();
