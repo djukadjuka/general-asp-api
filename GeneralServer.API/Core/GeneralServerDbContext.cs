@@ -10,27 +10,28 @@ namespace GeneralServer.API.Core
     public class GeneralServerDbContext : DbContext
     {
 
-        public GeneralServerDbContext(DbContextOptions<GeneralServerDbContext> contextOptions) : base(contextOptions)
+        public GeneralServerDbContext(DbContextOptions<GeneralServerDbContext> options) : base(options)
         {
 
         }
+        
 
-        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<GSUser> GSUsers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
-            modelBuilder.Entity<User>()
+            //base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<GSUser>()
                 .Property(x => x.Deleted)
                 .HasDefaultValue(false);
-            modelBuilder.Entity<User>()
+            modelBuilder.Entity<GSUser>()
                 .Property(x => x.CreatedAt)
                 .HasDefaultValueSql("GETDATE()");
-            modelBuilder.Entity<User>()
+            modelBuilder.Entity<GSUser>()
                 .Property(x => x.UpdatedAt)
                 .HasDefaultValueSql("GETDATE()");
 
-            base.OnModelCreating(modelBuilder);
         }
     }
 }

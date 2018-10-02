@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GeneralServer.API.Core.Domain.Model
 {
-    public class User : BaseModel
+    public class GSUser : BaseModel
     {
         [Required]
         [MaxLength(100)]

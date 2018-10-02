@@ -12,19 +12,19 @@ namespace GeneralServer.API.Core
     {
         public static void SeedDatabase(this GeneralServerDbContext context)
         {
-            User[] users = new User[]
+            GSUser[] gsUsers = new GSUser[]
             {
-                new User{Username = "admin",        Password="admin"},
-                new User{Username = "rogerS",       Password="pass123"},
-                new User{Username = "pat1",         Password="pass123"},
-                new User{Username = "st3v3n",       Password="pass123"},
-                new User{Username = "wallace",      Password="pass123"},
-                new User{Username = "KurtisC",      Password="pass123"},
-                new User{Username = "W_StaGG",      Password="pass123"},
-                new User{Username = "DennisCXZ",    Password="pass123"}
+                new GSUser{Username = "admin",        Password="admin"},
+                new GSUser{Username = "rogerS",       Password="pass123"},
+                new GSUser{Username = "pat1",         Password="pass123"},
+                new GSUser{Username = "st3v3n",       Password="pass123"},
+                new GSUser{Username = "wallace",      Password="pass123"},
+                new GSUser{Username = "KurtisC",      Password="pass123"},
+                new GSUser{Username = "W_StaGG",      Password="pass123"},
+                new GSUser{Username = "DennisCXZ",    Password="pass123"}
             };
 
-            context.Users.AddRange(users);
+            context.GSUsers.AddRange(gsUsers);
             context.SaveChanges();
         }
 

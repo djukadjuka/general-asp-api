@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GeneralServer.API.Core;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -23,6 +25,8 @@ namespace GeneralServer.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<GeneralServerDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("BaseConnection")));
+
             services.AddMvc();
         }
 
@@ -32,6 +36,15 @@ namespace GeneralServer.API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                
+            }
+
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                GeneralServerDbContext context = serviceScope.ServiceProvider.GetService<GeneralServerDbContext>();
+                
+                context.SeedDatabase();
+                context.CreateTriggers();
             }
 
             app.UseMvc();
