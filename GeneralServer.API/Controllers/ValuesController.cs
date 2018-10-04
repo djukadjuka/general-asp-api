@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GeneralServer.API.Controllers
 {
     [Route("api/[controller]")]
+    [EnableCors(Startup.CorsPolicy)]
     public class ValuesController : Controller
     {
         // GET api/values

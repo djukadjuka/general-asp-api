@@ -15,6 +15,8 @@ namespace GeneralServer.API
 {
     public class Startup
     {
+        public const string CorsPolicy = "DefaultAnyPolicy";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -26,7 +28,14 @@ namespace GeneralServer.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<GeneralServerDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("BaseConnection")));
-
+            services.AddCors(
+                o => o.AddPolicy(CorsPolicy, builder =>
+                {
+                    builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+                })
+            );
             services.AddMvc();
         }
 
